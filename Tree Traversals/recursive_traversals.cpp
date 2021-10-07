@@ -1,19 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class node{
+class node
+{
 public:
     int data;
     node *left;
     node *right;
-    node(int value){
+    node(int value)
+    {
         data = value;
         left = NULL;
         right = NULL;
     }
 };
 
-node *createTree(node *root){
+node *createTree(node *root)
+{
     queue<node *> q;
     node *p, *t;
     int x;
@@ -25,13 +28,15 @@ node *createTree(node *root){
     q.push(root);
 
     // now iterating a while loop to take all nodes of Tree as input
-    while (!q.empty()){
+    while (!q.empty())
+    {
         p = q.front();
         q.pop();
         cout << "Enter Left Child of " << p->data << " : ";
         cin >> x;
 
-        if (x != -1){
+        if (x != -1)
+        {
             t = new node(x);
             p->left = t;
             q.push(t);
@@ -39,7 +44,8 @@ node *createTree(node *root){
 
         cout << "Enter Right Child of " << p->data << " : ";
         cin >> x;
-        if (x != -1){
+        if (x != -1)
+        {
             t = new node(x);
             p->right = t;
             q.push(t);
@@ -73,24 +79,6 @@ void postOrder(node *root)
     postOrder(root->left);
     postOrder(root->right);
     cout << root->data << " ";
-}
-
-void levelOrder(node *root) {}
-
-// SEE HOW TO IMPLEMENT IT
-int countHeight(node *root)
-{
-    int x = 0, y = 0;
-    if (root == NULL)
-        return 0;
-
-    x = countHeight(root->left);
-    y = countHeight(root->right);
-
-    if (x > y)
-        return x + 1;
-    else
-        return y + 1;
 }
 
 int main()

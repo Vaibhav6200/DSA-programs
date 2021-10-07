@@ -101,35 +101,24 @@ void inOrder(node *root)
 }
 
 // PostOrder Iterative Traversal
-void postOrder(node *root)
-{
-    node *t = root;
-    stack<node *> st;
-    long temp; // this will store negative address of our node
-    while (t != NULL || !st.empty())
-    {
-        if (t != NULL)
-        {
-            st.push(t);
-            t = t->left;
+void postOrder(node *curr){
+    node* prev;
+    stack<node*> st;
+    while(curr != NULL || !st.empty()){
+        if(curr != NULL){
+            st.push(curr);
+            curr = curr->left;
         }
-        else
-        {
-            temp = -(int)st.top();
-            if (temp > 0)
-            {
-                t = st.top();
+        else{
+            curr = st.top();
+            if((curr->right == NULL) || (curr->right == prev)){
+                cout << curr->data << " ";
                 st.pop();
-                st.push((node *)temp); // pushing negative address in stack
-                t = t->right;
+                prev = curr;
+                curr = NULL; 
             }
-            else
-            {
-                t = (node *)abs((int)st.top());
-                cout << t->data << " ";
-                st.pop();
-                t = NULL;
-            }
+            else 
+                curr = curr->right;
         }
     }
 }
@@ -139,17 +128,17 @@ int main()
     node *root = NULL;
     root = createTree(root);
 
-    cout << "PreOrder : ";
+    cout << "\n\nPreOrder  : ";
     preOrder(root);
     cout << endl;
 
-    cout << "InOrder : ";
+    cout << "InOrder   : ";
     inOrder(root);
     cout << endl;
 
     cout << "PostOrder : ";
     postOrder(root);
-    cout << endl;
+    cout << "\n\n";
 
     return 0;
 }
