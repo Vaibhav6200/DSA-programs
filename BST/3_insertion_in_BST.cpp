@@ -15,62 +15,22 @@ public:
 };
 
 
-node *createTree(node *root){
-    queue<node *> q;
-    node *p, *t;
-    int x;
-
-    // creating root node
-    cout << "Enter root Node: ";
-    cin >> x;
-    root = new node(x);
-    q.push(root);
-
-    // now iterating a while loop to take all nodes of Tree as input
-    while (!q.empty()){
-        p = q.front();
-        q.pop();
-        cout << "Enter Left Child of " << p->data << " : ";
-        cin >> x;
-
-        if (x != -1){
-            t = new node(x);
-            p->left = t;
-            q.push(t);
-        }
-
-        cout << "Enter Right Child of " << p->data << " : ";
-        cin >> x;
-        if (x != -1){
-            t = new node(x);
-            p->right = t;
-            q.push(t);
-        }
-    }
-    return root;
-}
-
-
-
-
-// ALERT !  This function is WRONG
-
-
-
-
-
-
-node* Insert(node* p, int value){
-
+node* Insert(node* root, int value){
     // NOTE:- first search for the element which you want to insert in BST, if not found insert it
 
-    node * prev = NULL;        // holds previous pointer address
+    node * prev;        // holds previous pointer address
+    node * p = root;
+
+    if(root == NULL){       // means no element in tree
+         node * temp = new node(value);
+         return temp;        
+    }
 
     while(p!=NULL){  
         prev = p;   // updating prev pointer
         
         if(p->data == value)
-            return p;
+            return root;
 
         else if (p->data > value)
             p = p->left;
@@ -78,6 +38,7 @@ node* Insert(node* p, int value){
         else
             p = p->right;
     }
+
     p = prev;
     node * temp = new node(value);
     if(p->data > value)
@@ -85,30 +46,30 @@ node* Insert(node* p, int value){
     else
          p->right = temp;
 
-    return p;
+    return root;
 }
 
-void preOrder(node* p){
+void inOrder(node* p){
     if(p == NULL)
         return;
     
+    inOrder(p->left);
     cout << p->data << " ";
-    preOrder(p->left);
-    preOrder(p->right);
+    inOrder(p->right);
 }
 
 int main()
 {
     node* root = NULL;
     
-    root = createTree(root);
-    cout << "PreOrder Before Insertion of 25: ";
-    preOrder(root);
-    root = Insert(root, 25);
-    cout << "\n\nPreOrder After Insertion of 25: ";
-    preOrder(root);
-
-    preOrder(root);
+    root = Insert(root, 10);
+    root = Insert(root, 5);
+    root = Insert(root, 20);
+    root = Insert(root, 8);
+    root = Insert(root, 30);
+    
+    cout << "Inorder Traversal : ";
+    inOrder(root);
 
     return 0;
 }
