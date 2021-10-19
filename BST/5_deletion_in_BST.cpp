@@ -1,97 +1,112 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-
-class node{
+class node
+{
 public:
     int data;
     node *left;
     node *right;
-    node(int value){
+    node(int value)
+    {
         data = value;
         left = NULL;
         right = NULL;
     }
 };
 
-node* Rinsert(node* t, int value){
+node *Rinsert(node *t, int value)
+{
 
-    if(t == NULL){
-        node* temp = new node(value);
+    if (t == NULL)
+    {
+        node *temp = new node(value);
         return temp;
     }
 
-    if(t->data > value)
+    if (t->data > value)
         t->left = Rinsert(t->left, value);
 
-    else if(t->data < value)
+    else if (t->data < value)
         t->right = Rinsert(t->right, value);
 
     return t;
 }
 
-void inOrder(node* p){
-    if(p == NULL)
+void inOrder(node *p)
+{
+    if (p == NULL)
         return;
-    
+
     inOrder(p->left);
     cout << p->data << " ";
     inOrder(p->right);
 }
 
-int Height(node* t){
+int Height(node *p)
+{
+    int x, y;
+    if (p == NULL)
+        return 0;
+    x = Height(p->left);
+    y = Height(p->right);
 
-    if(t != NULL){
-        int x=0, y=0;
-        x = Height(t->left);
-        y = Height(t->right);
-        return (x>y ? x+1 : y+1);
-    }
-    return 0;
+    if (x > y)
+        return x + 1;
+    else
+        return y + 1;
 }
 
-node* inPre(node* t){
-    while(t && t->right != NULL)
-        t = t->right;
-    return t;
+node *InPre(node *p)
+{
+
+    while (p->right != NULL)
+        p = p->right;
+
+    return p;
+}
+node *InSucc(node *p)
+{
+    while (p->left != NULL)
+        p = p->left;
+
+    return p;
 }
 
-node* inSucc(node* t){
-    
-    while(t && t->left != NULL)
-        t = t->left;
-    return t;
-}
+node *Delete(node *p, int key)
+{
 
-node* Delete(node *p , int key){
-
-
-// Now if there is no element in tree and then also user is trying to delete any element then just return NULL
-    if(p==NULL)
-        return NULL;
-
-// now if our node is a leaf node then just delete that node
-    if(p->left == NULL && p->right == NULL){
+    // STEP 4:- if we reached to last node (leaf node) then we have to just delete that node
+    if (p->left == NULL && p->right == NULL)
+    {
         delete p;
         return NULL;
     }
 
-// DELETING A NODE
-    if(p->data > key)
+    // STEP 1:- if key is less than p->data means its present in left subtree of p so we will perform delete operation on left subtree
+    if (key < p->data)
         p->left = Delete(p->left, key);
-    
-    else if(p->data < key)
+
+    // STEP 2:- if key is greater than p->data means its present in right subtree of p so we will perform delete operation on right subtree
+    else if (key > p->data)
         p->right = Delete(p->right, key);
 
-    else{
-        if(Height(p->left) > Height(p->right)){
-            // now delete element from left subtree
-            node* q = inPre(p->left);
+    // STEP 3:- if this else part gets executed means we found the key
+    else
+    {
+
+        // now check height of left and right subtree and then jiski height jyada hogi uss subtree me se hum element replace krenge(inorder successor/predecessor)
+        if (Height(p->left) > Height(p->right))
+        {
+            // find inorder predecessor of p and replace its data with p's data
+            node *q = InPre(p->left);
             p->data = q->data;
             p->left = Delete(p->left, q->data);
         }
-        else{
-            node* q = inPre(p->right);
+        else
+        {
+            // find inorder Successor of p and replace its data with p's data
+            node *q = InSucc(p->right);
             p->data = q->data;
             p->right = Delete(p->right, q->data);
         }
@@ -101,15 +116,20 @@ node* Delete(node *p , int key){
 
 int main()
 {
-    node* root = NULL;
-    
-    root = Rinsert(root, 10);
-    root = Rinsert(root, 5);
-    root = Rinsert(root, 20);
-    root = Rinsert(root, 8);
+    node *root = NULL;
     root = Rinsert(root, 30);
-    
-    cout << "Inorder Traversal : ";
+    root = Rinsert(root, 20);
+    root = Rinsert(root, 40);
+    root = Rinsert(root, 10);
+    root = Rinsert(root, 25);
+    root = Rinsert(root, 35);
+    root = Rinsert(root, 45);
+    root = Rinsert(root, 42);
+    root = Rinsert(root, 43);
+
+    inOrder(root);
+    cout << endl;
+    root = Delete(root, 40);
     inOrder(root);
 
     return 0;
