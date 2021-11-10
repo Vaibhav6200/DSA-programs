@@ -57,16 +57,15 @@ int Height(node *p)
         return y + 1;
 }
 
-node *InPre(node *p)
-{
+node *InPre(node *p){
 
     while (p->right != NULL)
         p = p->right;
 
     return p;
 }
-node *InSucc(node *p)
-{
+
+node *InSucc(node *p){
     while (p->left != NULL)
         p = p->left;
 
@@ -75,7 +74,6 @@ node *InSucc(node *p)
 
 node *Delete(node *p, int key)
 {
-
     // STEP 4:- if we reached to last node (leaf node) then we have to just delete that node
     if (p->left == NULL && p->right == NULL)
     {
@@ -94,7 +92,6 @@ node *Delete(node *p, int key)
     // STEP 3:- if this else part gets executed means we found the key
     else
     {
-
         // now check height of left and right subtree and then jiski height jyada hogi uss subtree me se hum element replace krenge(inorder successor/predecessor)
         if (Height(p->left) > Height(p->right))
         {
