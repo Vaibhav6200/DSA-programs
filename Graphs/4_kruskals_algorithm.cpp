@@ -49,7 +49,7 @@ int main()
         {
             if(included[j] == 0 && edges[2][j] < min){
                 min = edges[2][j];
-                k=j;
+                k=j;        // k is used to mark that edges as 1 in included array
                 u = edges[0][j];
                 v = edges[1][j];
             }
