@@ -19,7 +19,7 @@ int Delete(int A[] , int n){       // n = size of array (used for purpose of hea
     A[n] = val;
 
     int i=1;
-    int j = 2*i;
+    int j = 2*i;        // currently j is pointing to left child of i
 
     // Now compare x 
     while(j < n-1){
@@ -49,6 +49,7 @@ void display(int H[], int n){
 
 int main()
 {
+    // first element of array is 0 because we are not using that index
     int H[] = {0, 10, 20, 30, 25, 5, 40, 35};
 
     for(int i=2 ; i<=7 ; i++)

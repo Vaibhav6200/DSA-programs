@@ -35,7 +35,8 @@ void quickSort(int A[], int l, int h){
 
 int main()
 {
-    int A[] = {11, 13, 7, 2, 6, 9, 4, 5, 10, 3, INT_MAX};
+   int A[] = {11, 13, 7, 12, 6, 9, 4, 5, 10, 3, INT_MAX};
+  // int A[]={11};
     cout << "Before sorting : ";
     for(int i=0 ; i<10 ; i++)
         cout << A[i] << " ";

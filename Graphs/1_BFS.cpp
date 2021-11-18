@@ -42,6 +42,6 @@ void BFS(int i){
 
 int main()
 {
-    BFS(1);
+    BFS(4);
     return 0;
 }
