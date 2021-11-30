@@ -3,17 +3,17 @@ using namespace std;
 
 void insertionSort(int A[], int n){
 
-    int i, j, curr, x;;
+    int i, j, curr, temp;
 
     // first for loop is for passes this loop will run n-1 times 
     for(i=1 ; i<n ; i++){
         j = i-1;
-        x = A[i];
-        while(j>=0 && A[j] > x){
+        temp = A[i];
+        while(j>=0 && A[j] > temp){
             A[j+1] = A[j];
             j--;
         }
-        A[j+1] = x;
+        A[j+1] = temp;
     }
 
 
